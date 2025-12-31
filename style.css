@@ -1,0 +1,12 @@
+.my-custom-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 9999;
+    background: #ff4757;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
