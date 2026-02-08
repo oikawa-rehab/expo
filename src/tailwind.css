@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* カスタムユーティリティや上書きスタイルをここに追加 */
+:root {
+  --dxpo-accent: #06b6d4;
+}
+
+/* 例: Tampermonkey 注入用の小さなユーティリティ */
+.dxpo-panel {
+  @apply bg-white p-4 rounded shadow;
+}
