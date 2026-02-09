@@ -15,9 +15,18 @@ export const UIEngine = {
             
             if (field.type === 'radio' || field.type === 'checkbox') {
                 field.options.forEach(opt => {
+                    // デフォルト値の反映
+                    let checkedAttr = '';
+                    if (field.type === 'radio' && field.default !== undefined && field.default === opt) {
+                        checkedAttr = ' checked';
+                    }
+                    if (field.type === 'checkbox' && Array.isArray(field.default) && field.default.includes(opt)) {
+                        checkedAttr = ' checked';
+                    }
+
                     html += `
                         <label class="inline-flex items-center mr-3 cursor-pointer">
-                            <input type="${field.type}" name="${field.id}" value="${opt}" class="mr-1">
+                            <input type="${field.type}" name="${field.id}" value="${opt}" class="mr-1"${checkedAttr}>
                             <span>${opt}</span>
                         </label>`;
                 });

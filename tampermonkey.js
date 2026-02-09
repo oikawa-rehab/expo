@@ -8,6 +8,7 @@
 // @match        https://dxpo.jp/s/getqrinfo*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_addStyle
+// @grant        unsafeWindow
 // @connect      raw.githubusercontent.com
 // @connect      8fadf9ca1439.ngrok-free.app
 // @connect      localhost

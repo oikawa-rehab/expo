@@ -19,27 +19,28 @@ export async function initGetQR(BASE_URL) {
 
     // 2. UIの描画
     const customForm = UIEngine.renderForm(FIELDS);
-    
-    const syncBtn = document.createElement('button');
-    syncBtn.type = "button";
-    syncBtn.innerText = "内容をメモ欄に同期";
-    syncBtn.className = "w-full bg-blue-500 text-white p-3 rounded-lg font-bold mt-4 shadow-md transition";
-    customForm.appendChild(syncBtn);
 
     mainContainer.insertBefore(customForm, mainContainer.children[1]);
 
-    // 3. 同期イベント
-    syncBtn.addEventListener('click', () => {
+    // 3. 自動同期（クリック不要）
+    const updateMemo = () => {
         // UIエンジンで画面の値を収集
         const currentData = UIEngine.getValues(customForm, FIELDS);
-        
+
         // 汎用化したUtilsで文字列へ変換
         const taggedText = MyUtils.serializeMemo(currentData, FIELDS);
-        
-        // 既存システムへ流し込み
+
+        // 既存システムへ流し込み（値のみ更新。保存は既存サイト側の挙動に任せる）
         originalMemo.value = taggedText;
         originalMemo.dispatchEvent(new Event('input', { bubbles: true }));
-        
-        console.log("Synced String:", taggedText);
-    });
+
+        console.log("Auto-synced String:", taggedText);
+    };
+
+    // ページ読み込み時点で一度変換（空欄状態も出力）
+    updateMemo();
+
+    // 以降はフォーム内の変更時に自動で再生成して反映
+    customForm.addEventListener('input', updateMemo);
+    customForm.addEventListener('change', updateMemo);
 }

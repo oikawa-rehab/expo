@@ -5,26 +5,21 @@ export const MyUtils = {
      * @param {Array} fields - config.jsのFIELDS
      */
     serializeMemo: (formData, fields) => {
+        // すべてのフィールドを出力するが、値が空のときは空文字として出力する
         return fields
             .map(field => {
                 const value = formData[field.id];
 
-                // 値が空（空文字、空配列、未定義）ならその項目は出力しない
-                if (!value || (Array.isArray(value) && value.length === 0)) {
-                    return null;
-                }
-
-                // 配列（checkbox）の場合はカンマ区切り、文字列の場合はそのまま
-                const displayValue = Array.isArray(value) 
-                    ? value.join(", ") 
-                    : value;
+                // 配列（checkbox）の場合はカンマ区切り、文字列の場合はそのまま。空の場合は空文字にする
+                const displayValue = Array.isArray(value)
+                    ? (value.length ? value.join(", ") : "")
+                    : (value !== undefined && value !== null ? String(value) : "");
 
                 // メモ欄の改行はCSV破壊を防ぐためスペースに置換
                 const cleanValue = String(displayValue).replace(/\n/g, " ");
 
                 return `【${field.tag}】${cleanValue}`;
             })
-            .filter(Boolean) // null（空項目）を除去
             .join(" ");      // 半角スペースで繋ぐ
     },
 
