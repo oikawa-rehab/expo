@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* クラス検出: プロジェクトの HTML / JS をスキャン（スタイルシートからの相対パス） */
+@source "../modules/**/*.js";
+@source "../system_html/**/*.html";
+@source "../*.js";
