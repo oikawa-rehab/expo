@@ -6,13 +6,6 @@ export function initVisitHistory() {
         const q = (sel, root = document) => root.querySelector(sel);
         const qAll = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-        const addStyle = cssText => {
-            const s = document.createElement('style');
-            s.type = 'text/css';
-            s.appendChild(document.createTextNode(cssText));
-            document.head.appendChild(s);
-        };
-
         // --- Config / constants -------------------------------------
         const HEADER_COLUMN_MOVE_INDICES_HIDE = [7, 8, 9];
         const HEADER_COLUMN_MOVE_INDICES_SHOW = [7, 8, 9, 10, 11, 12, 13, 14, 15];
@@ -89,44 +82,13 @@ export function initVisitHistory() {
             });
         }
 
-        // Insert CSS used by the script
-        function addCustomStyles() {
-            const css = `
-                .sidebar-content-hidden { display: none !important; }
-                .hidden { display: none !important; }
-                .focus section.table-no-responsive { width: 100%; min-width: 100%; max-width: 1250px; }
-                .td-pararaph { white-space: break-spaces !important; }
-                .focus h2, .focus h3 { display: none; }
-                .focus .login-info-area { display: none !important; }
-                .focus .event-info-area { display: none !important; }
-                .focus .breadcrumbs { display: none; }
-                .focus .area-notification { display: none; }
-                .focus table.table thead tr:first-child th:nth-child(3) { display: none; }
-                .focus table.table thead tr:nth-child(2) { display: none; }
-                .focus table.table tbody tr td:nth-child(3),
-                .focus table.table tbody tr td:nth-child(4),
-                .focus table.table tbody tr td:nth-child(6) { display: none; }
-                .focus table.table tbody tr td:nth-child(9),
-                .focus table.table tbody tr td:nth-child(10),
-                .focus table.table tbody tr td:nth-child(11)
-                {
-                    white-space: break-spaces;
-                    min-width: 150px;
-                }
-
-            `;
-            addStyle(css);
-        }
-
         // --- Init ----------------------------------------------------
         // create toggle button
         const toggleBtn = document.createElement('button');
         toggleBtn.textContent = 'フォーカスモード切り替え';
-        toggleBtn.style.width = '100%';
-        toggleBtn.style.marginBottom = '10px';
+        toggleBtn.className = 'w-full mb-2.5';
         headerInsertTarget.appendChild(toggleBtn);
         removePathFromHeaderLinks();
-        addCustomStyles();
         (function initializeFocusMode() {
             const isFocus = localStorage.getItem('focusMode') === 'true';
             if (isFocus) {
@@ -183,26 +145,14 @@ export function initVisitHistory() {
             if (document.getElementById(MEMO_MODAL_ID)) return;
             const overlay = document.createElement('div');
             overlay.id = MEMO_MODAL_ID;
-            overlay.style.position = 'fixed';
-            overlay.style.top = '0';
-            overlay.style.left = '0';
-            overlay.style.right = '0';
-            overlay.style.bottom = '0';
-            overlay.style.background = 'rgba(0,0,0,0.5)';
-            overlay.style.display = 'none';
-            overlay.style.zIndex = '9999';
+            overlay.className = 'fixed inset-0 bg-black/50 z-[9999] hidden';
 
             const box = document.createElement('div');
-            box.style.width = '720px';
-            box.style.margin = '6% auto';
-            box.style.background = '#fff';
-            box.style.borderRadius = '6px';
-            box.style.padding = '16px';
-            box.style.boxShadow = '0 6px 18px rgba(0,0,0,0.2)';
+            box.className = 'w-[720px] mx-auto my-[6%] bg-white rounded-lg p-4 shadow-lg';
 
             const title = document.createElement('h3');
             title.innerText = 'メモ編集';
-            title.style.marginTop = '0';
+            title.className = 'mt-0';
 
             // form area: either structured form or fallback textarea
             const formArea = document.createElement('div');
@@ -224,18 +174,13 @@ export function initVisitHistory() {
             // fallback textarea when structured form isn't available
             const textarea = document.createElement('textarea');
             textarea.id = `${MEMO_MODAL_ID}-textarea`;
-            textarea.style.width = '100%';
-            textarea.style.height = '160px';
-            textarea.style.marginTop = '8px';
+            textarea.className = 'w-full h-40 mt-2';
             if (!customFormEl) {
                 formArea.appendChild(textarea);
             }
 
             const footer = document.createElement('div');
-            footer.style.display = 'flex';
-            footer.style.justifyContent = 'flex-end';
-            footer.style.gap = '8px';
-            footer.style.marginTop = '12px';
+            footer.className = 'flex justify-end gap-2 mt-3';
 
             const btnCancel = document.createElement('button');
             btnCancel.innerText = 'キャンセル';
@@ -260,7 +205,7 @@ export function initVisitHistory() {
         function showMemoModal() {
             const overlay = document.getElementById(MEMO_MODAL_ID);
             if (!overlay) return;
-            overlay.style.display = 'block';
+            overlay.classList.remove('hidden');
             const ta = document.getElementById(`${MEMO_MODAL_ID}-textarea`);
             if (ta) ta.focus();
         }
@@ -268,7 +213,7 @@ export function initVisitHistory() {
         function hideMemoModal() {
             const overlay = document.getElementById(MEMO_MODAL_ID);
             if (!overlay) return;
-            overlay.style.display = 'none';
+            overlay.classList.add('hidden');
             currentEditContext = null;
         }
 
