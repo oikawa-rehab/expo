@@ -1,0 +1,21 @@
+{
+  "name": "expo",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
+    "tailwind:build": "postcss src/tailwind.css -o style.css",
+    "tailwind:dev": "postcss src/tailwind.css -o style.css -w"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "jest": "^29.6.1",
+    "jest-environment-jsdom": "^29.6.1",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^4.1.18"
+  }
+}

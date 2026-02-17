@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* クラス検出: プロジェクトの HTML / JS をスキャン（スタイルシートからの相対パス） */
+@source "../modules/**/*.js";
+@source "../system_html/**/*.html";
+@source "../*.js";
+
+/* Visit history: focus mode & table overrides (class toggles from script) */
+@layer components {
+    .sidebar-content-hidden { display: none; }
+    .focus section.table-no-responsive { width: 100%; min-width: 100%; max-width: 1250px; }
+    .td-pararaph { white-space: break-spaces; }
+    .focus h2, .focus h3 { display: none; }
+    .focus .login-info-area { display: none; }
+    .focus .event-info-area { display: none; }
+    .focus .breadcrumbs { display: none; }
+    .focus .area-notification { display: none; }
+    .focus table.table thead tr:first-child th:nth-child(3) { display: none; }
+    .focus table.table thead tr:nth-child(2) { display: none; }
+    .focus table.table tbody tr td:nth-child(3),
+    .focus table.table tbody tr td:nth-child(4),
+    .focus table.table tbody tr td:nth-child(6) { display: none; }
+    .focus table.table tbody tr td:nth-child(9),
+    .focus table.table tbody tr td:nth-child(10),
+    .focus table.table tbody tr td:nth-child(11) {
+        white-space: break-spaces;
+        min-width: 150px;
+    }
+}

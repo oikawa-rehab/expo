@@ -14,8 +14,10 @@ export const UIEngine = {
             let html = `<p class="font-bold text-gray-700 mb-1">${field.label}</p>`;
             
             if (field.type === 'radio' || field.type === 'checkbox') {
-                field.options.forEach(opt => {
-                    // デフォルト値の反映
+                const opts = field.optionsByGroup
+                    ? field.optionsByGroup.flatMap(g => g.options)
+                    : field.options;
+                const renderOpt = (opt) => {
                     let checkedAttr = '';
                     if (field.type === 'radio' && field.default !== undefined && field.default === opt) {
                         checkedAttr = ' checked';
@@ -23,13 +25,19 @@ export const UIEngine = {
                     if (field.type === 'checkbox' && Array.isArray(field.default) && field.default.includes(opt)) {
                         checkedAttr = ' checked';
                     }
-
-                    html += `
-                        <label class="inline-flex items-center mr-3 cursor-pointer">
+                    return `<label class="inline-flex items-center mr-3 cursor-pointer">
                             <input type="${field.type}" name="${field.id}" value="${opt}" class="mr-1"${checkedAttr}>
                             <span>${opt}</span>
                         </label>`;
-                });
+                };
+                if (field.optionsByGroup) {
+                    field.optionsByGroup.forEach(grp => {
+                        html += `<p class="text-sm font-medium text-gray-600 mt-2 mb-1">${grp.label}</p>`;
+                        grp.options.forEach(opt => { html += renderOpt(opt); });
+                    });
+                } else {
+                    opts.forEach(opt => { html += renderOpt(opt); });
+                }
             } else if (field.type === 'textarea') {
                 html += `<textarea name="${field.id}" class="w-full border p-2 h-24 rounded bg-gray-50"></textarea>`;
             }
