@@ -25,7 +25,7 @@ export const UIEngine = {
                     if (field.type === 'checkbox' && Array.isArray(field.default) && field.default.includes(opt)) {
                         checkedAttr = ' checked';
                     }
-                    return `<label class="inline-flex items-center mr-3 cursor-pointer">
+                    return `<label class="inline-flex items-center mr-3 cursor-pointer whitespace-nowrap">
                             <input type="${field.type}" name="${field.id}" value="${opt}" class="mr-1"${checkedAttr}>
                             <span>${opt}</span>
                         </label>`;
