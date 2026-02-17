@@ -1,14 +1,12 @@
-// 下記のファイルをTampermonkeyに読み込ませる
-
 // ==UserScript==
 // @name         DXPO Helper (Public Remote)
 // @namespace    http://tampermonkey.net/
 // @version      1.2
 // @match        https://dxpo.jp/s/tex/hokuriku25/real-event-visit-history*
+// @match        https://dxpo.jp/s/tex/tokyo26/real-event-visit-history*
 // @match        https://dxpo.jp/s/getqrinfo*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_addStyle
-// @grant        unsafeWindow
 // @connect      raw.githubusercontent.com
 // @connect      8fadf9ca1439.ngrok-free.app
 // @connect      localhost
@@ -20,15 +18,19 @@
 
     // --- 設定項目 ---
     // Publicリポジトリなのでトークン不要
-   // const BASE_URL = "https://raw.githubusercontent.com/oikawa-rehab/expo/main";
-   const BASE_URL = "http://localhost:8080";
+   const BASE_URL = "https://oikawa-rehab.github.io/expo/"
+   //const BASE_URL = "http://localhost:8080";
     unsafeWindow.MY_SCRIPT_CONFIG = {
         baseUrl: BASE_URL
     };
 
 
     const date = Date.now();
+    const JS_URL = `${BASE_URL}/main.js?v=${date}`;
     const CSS_URL = `${BASE_URL}/style.css?v=${date}`;
+
+    // --- JSの読み込み ---
+    import(JS_URL);
 
     // ヘッダーからAuthorizationを削除
     const headers = {
@@ -51,9 +53,6 @@
             }
         }
     });
-
-    // --- JSの読み込み ---
-    import(`${BASE_URL}/main.js?v=${date}`);
 
 
 })();
