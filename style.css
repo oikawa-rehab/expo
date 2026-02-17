@@ -378,7 +378,7 @@
     max-width: 1250px;
   }
   .td-pararaph {
-    white-space: break-spaces;
+    white-space: break-spaces !important;
   }
   .focus h2, .focus h3 {
     display: none;
