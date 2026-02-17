@@ -8,7 +8,7 @@
 // @grant        GM_xmlhttpRequest
 // @grant        GM_addStyle
 // @connect      raw.githubusercontent.com
-// @connect      8fadf9ca1439.ngrok-free.app
+// @connect      oikawa-rehab.github.io
 // @connect      localhost
 // @connect      localhost:8080
 // ==/UserScript==
