@@ -9,7 +9,7 @@
 @layer components {
     .sidebar-content-hidden { display: none; }
     .focus section.table-no-responsive { width: 100%; min-width: 100%; max-width: 1250px; }
-    .td-pararaph { white-space: break-spaces; }
+    .td-pararaph { white-space: break-spaces !important; }
     .focus h2, .focus h3 { display: none; }
     .focus .login-info-area { display: none; }
     .focus .event-info-area { display: none; }
